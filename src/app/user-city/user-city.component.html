@@ -1,0 +1,78 @@
+<div class="appContainer">
+  <main class="text-right">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-5 col-md-6 col-sm-12 my-4 pl-lg-2 mx-auto">
+          <div class="mainPanel p-4 text-justify">
+            <h5 class="font-weight-bold text-center mb-4">
+              انتخاب منطقه محل تحصیل
+            </h5>
+            <p> لطفا محل آخرین سال تحصیلی خود <strong>(چه در حال تحصیل هستید یا تحصیلات شما تمام شده است)</strong>
+              را وارد نمایید:</p>
+
+            <div class="mb-4">
+              <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label class="col-sm-3 col-form-label" for="userProvince">استان</label>
+                </div>
+                <div class="col-sm-9">
+                  <select class="form-control" id="userProvince"
+                          class="js-example-basic-multiple" name="province[]"
+                          [(ngModel)]="selectedProvince">
+                    <option *ngFor="let mat of provinceList;let i = index" value="{{mat.fldPkStateCo}}">{{mat.fldState}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label class="col-sm-3 col-form-label" for="userCity">شهرستان</label>
+                </div>
+                <div class="col-sm-9">
+                  <select class="form-control" id="userCity"
+                          class="js-example-basic-multiple" name="city[]"
+                          [(ngModel)]="selectedCity">
+                    <option *ngFor="let mat of cityList;let i = index" value="{{mat.pk}}">{{mat.name}}
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label class="col-sm-3 col-form-label" for="userVillage">شهر/دهستان</label>
+                </div>
+                <div class="col-sm-9">
+                  <select class="form-control" id="userVillage"
+                          class="js-example-basic-multiple" name="village[]"
+                          [(ngModel)]="selectedVillage">
+                    <option *ngFor="let mat of villageList;let i = index" value="{{mat.pk}}">{{mat.name}}
+                  </select>
+                </div>
+              </div>
+              <p class="text-center">
+                بر اساس مناطق کشوری تعریف شده، آخرین سال تحصیلی شما در
+                قرار دارد.
+              </p>
+              <ul class="re-ul">
+                <li class="my-4">
+                  توجه: شیوه تعیین منطقه شما در کنکور سراسری متفاوت است و بر اساس ضوابط دفترچه راهنمای کنکور سراسری
+                  خواهد بود. در این سایت صرفا جهت تسهیلات بیشتر برای مناطق 2 و 3 این الگو اجرا شده است.
+                </li>
+
+                <li class="my-4">
+                  توجه: کاربر موظف است تصویر گواهی اشتغال به تحصیل و کارت ملی خود را حداکثر تا یک ماه پس از ثبت نام، در
+                  بخش پروفایل بارگذاری کند. چنانچه فارغ التحصیل شده اید. بارگذاری تصویر مدرک دیپلم و کارت ملی کفایت می
+                  کند.
+                </li>
+              </ul>
+              <div class="col-12 text-center">
+                <button class="btn btn-primary px-5">تایید</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

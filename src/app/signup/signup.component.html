@@ -1,0 +1,85 @@
+<main class="pb-3 text-right">
+  <div class="container">
+    <div class="row mt-lg-5 py-2">
+      <div class="col-12 mb-3">
+        <div class="container text-center">
+          <a href="/">
+            <img class="p-3" src="../../assets/images/tamland-logo.png" />
+          </a>
+        </div>
+      </div>
+      <div class="col-md-7 col-12 px-lg-5 m-auto">
+        <div id="signupPhone" class="w-100 bg-white rounded border p-3">
+          <div class="h4 text-center text-muted my-2">
+            به تام‌لند خوش آمدید
+          </div>
+          <div class="text-center my-3">
+            شماره موبایل خود را وارد کنید
+          </div>
+
+          <div  class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="my-addon">
+                  <i class="fa fa-mobile text-white"></i>
+                </span>
+              </div>
+              <input
+                class="form-control"
+                type="text"
+                name=""
+                placeholder="شماره همراه"
+                aria-label="Recipient's "
+                aria-describedby="my-addon"
+                [(ngModel)]="phoneNumber"
+              />
+            </div>
+          </div>
+
+
+          <div class="col-12 text-center">
+            <div>
+              <button class="btn btn-lg btn-primary w-50 m-auto" (click)="signUp()">ثبت نام</button>
+            </div>
+            <a href="" class="btn btn-light text-primary-dark mt-3" routerLink="/"
+              >قبلا ثبت نام کرده اید؟ ورود</a>
+          </div>
+        </div>
+        <div  id="verifyCode" class="w-100 bg-white rounded border p-3 showHide">
+          <div class="h4 text-center text-muted my-2">
+            به تام‌لند خوش آمدید
+          </div>
+          <div class="text-center my-3">
+           کد ارسال شده به شماره {{showPhoneNum}} را وارد نمایید
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="my-addon">
+                  <i class="fa fa-mobile text-white"></i>
+                </span>
+              </div>
+              <input
+                class="form-control"
+                type="text"
+                name=""
+                placeholder="کد ارسال شده"
+                aria-label="Recipient's "
+                aria-describedby="my-addon"
+                [(ngModel)]="code"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 text-center">
+            <div>
+              <button class="btn btn-lg btn-primary w-50 m-auto" (click)="sendVerifyCodeRegister()">عضویت</button>
+            </div>
+            <a (click)="correctPhoneNum()" class="btn btn-light text-primary-dark mt-3">تصحیح شماره موبایل</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,18 @@
+input {
+  direction: rtl;
+  text-align: right;
+}
+
+.imgBox {
+  display: none;
+}
+
+select {
+  padding-top: 2px;
+}
+
+.deleteQuestion
+{
+  margin-top: 35px;
+  color: red;
+}

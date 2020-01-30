@@ -1,0 +1,118 @@
+<!-- <div class="login-header clearfix pr-lg-5 my-4">
+  <div class="container">
+    <a>
+      <img class="float-lg-right px-3 py-2 mr-lg-5" src="../../assets/images/tamland-logo.png" />
+    </a>
+  </div>
+</div> -->
+<main class="pb-3 text-right">
+  <div class="container">
+    <div class="row mt-lg-5 py-2">
+      <div class="col-12 mb-3">
+        <div class="container text-center">
+          <a href="/">
+            <img class="p-3"
+            src="../../assets/images/tamland-logo.png"
+          />
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6 col-12 px-lg-5 m-auto">
+        <div class="w-100 bg-white rounded border p-3">
+          <div class="h4 text-center text-muted my-2">
+            به تام‌لند خوش آمدید
+          </div>
+          <div class="alert alert-warning text-center my-4 small font-weight-bold">
+            اگر قبلاً در سایت تام‌لند عضویت داشته‌اید و کلمه عبور تعریف نکرده‌اید، دکمه بازیابی کلمه عبور را بزنید.
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="my-addon">
+                  <i class="fa fa-mobile text-white"></i>
+                </span>
+              </div>
+              <input
+                class="form-control"
+                type="text"
+                name=""
+                placeholder="شماره همراه"
+                aria-label="Recipient's "
+                aria-describedby="my-addon"
+                [(ngModel)]="phoneNumber"
+                OnlyNumber="true"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="my-addon">
+                  <i class="fa fa-key text-white"></i>
+                </span>
+              </div>
+              <input
+                class="form-control"
+                type="password"
+                name=""
+                placeholder="رمز عبور"
+                aria-label=" "
+                aria-describedby="my-addon"
+                [(ngModel)]="password"
+              />
+            </div>
+          </div>
+
+          <div class="form-group d-flex align-items-center">
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input re-novalidate" type="checkbox" name="Input_RememberMe" value="true">
+              <label class="custom-control-label re-novalidate"> مرا به خاطر بسپار</label>
+            </div>
+            <div class="m-0 mr-auto">
+                    <a class="btn btn-sm btn-link small text-primary-dark" routerLink="/forgotPassword">
+                        بازیابی کلمه عبور
+                    </a>
+            </div>
+
+          </div>
+          <div class="col-12 text-center">
+            <div>
+              <button class="btn btn-lg btn-primary w-50 m-auto" (click)='login()'>ورود</button>
+            </div>
+            <a href="" class="btn btn-light text-primary-dark mt-3" routerLink="/signup">
+              کاربر جدید هستید؟ کلیک کنید</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row py-5 justify-content-center">
+      <div
+        class="col-md-6 col-12 px-lg-5 d-flex align-items-center justify-content-center"
+      >
+        <div class="w-100 bg-white rounded shadow-lg p-4">
+          <div class="h4 text-center font-weight-bold text-primary-dark">
+            به تام‌لند خوش آمدید
+          </div>
+          <div class="separator my-3"></div>
+          <div class="mt-4 mb-2">
+            شماره موبایل خود را وارد کنید
+          </div>
+
+          <div class="alert alert-danger text-justify small">
+            اگر قبلاً در سایت تام‌لند عضویت داشته‌اید و کلمه عبور تعریف
+            نکرده‌اید، دکمه بازیابی کلمه عبور را بزنید.
+          </div>
+
+
+
+          <div class="col-12 text-center">
+            <div class="btn btn-primary w-50 m-auto" (click)='login()'>ورود</div>
+            <a class="btn btn-link text-primary-dark">کاربر جدید هستید؟ کلیک کنید</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</main>

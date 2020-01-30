@@ -1,0 +1,183 @@
+<div class="appContainer">
+  <div class="text-right">
+    <div class="container-fluid">
+      <div class="py-3">
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="showNewSession()">
+            <i class="far fa-plus"></i> جلسه
+          </button>
+        </div>
+        <div class="text-justify">
+
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12 col-lg-12">
+            <div id="courseSessionList">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">جلسه جدید</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row form-row text-right">
+            <div class="col-12 mb-5">
+              <label class="" for="title">عنوان</label>
+              <input type="text" value=""
+                     class="form-control" id="title" name="title"
+                     [(ngModel)]="sessionName">
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="startDateTime"> زمان شروع</label>
+              <dp-date-picker
+                dir="rtl"
+                class="form-control"
+                [(ngModel)]="sessionStartDate"
+                (onChange)="getSelectedDate()"
+                mode="daytime"
+                [placeholder]="currentDate"
+                theme="dp-material"
+                [config]="datePickerConfig"
+              >
+              </dp-date-picker>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="endDate"> زمان پایان </label>
+              <dp-date-picker
+                dir="rtl"
+                class="form-control"
+                [(ngModel)]="sessionEndDate"
+                (onChange)="getSelectedEDate()"
+                mode="daytime"
+                [placeholder]="currentDate"
+                theme="dp-material"
+                [config]="datePickerConfig"
+              >
+              </dp-date-picker>
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="sessionType"> نوع مرحله</label>
+              <select class="form-control" id="sessionType" [(ngModel)]="selectedSessionType">
+                <option *ngFor="let pro of sessionList" value={{pro.id}}>
+                  {{pro.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="hasFile" id="hasFile" [(ngModel)]="hasFile">
+                <label for="hasFile" class="custom-control-label">آیا جلسه دارای فایل است؟</label>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for=""></label>
+              <label class="" for="fileUrl"> آدرس فایل </label>
+              <input class="form-control" id="fileUrl" [(ngModel)]="fileUrl"/>
+            </div>
+
+            <div class="col-lg-8 col-md-6 col-12 mb-5">
+              <label class="" for="audienceIds"> جلسه پایه </label>
+              <select class="form-control" id="audienceIds"
+                      class="js-example-basic-multiple" name="audience[]" multiple="multiple"
+                      [(ngModel)]="selectedBasicSession">
+                <option *ngFor="let mat of basicSessionList;let i = index" value="{{mat.pk}}">{{mat.name}}
+              </select>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="sessionType"> نوع آزمون</label>
+              <select class="form-control" id="examType" [(ngModel)]="selectedExamType">
+                <option *ngFor="let pro of examTypeList" value={{pro.id}}>
+                  {{pro.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="examDesc">توضیح کوتاه آزمون </label>
+              <input class="form-control" id="examDesc" name="examDesc" [(ngModel)]="examDesc"/>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="examScore">نمره آزمون </label>
+              <input class="form-control" id="examScore"
+                     name="examScore" [(ngModel)]="examScore" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="minScore">حداقل نمره قبولی </label>
+              <input class="form-control" id="minScore"
+                     name="minScore" [(ngModel)]="minScore" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="quesCount">تعداد سوالات آزمون </label>
+              <input class="form-control" id="quesCount"
+                     name="quesCount" [(ngModel)]="questionCount" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="repeatCount">تعداد تکرار آزمون </label>
+              <input class="form-control" id="repeatCount"
+                     name="repeatCount" [(ngModel)]="repeatCount" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <label class="" for="examTime">زمان آزمون به دقیقه</label>
+              <input class="form-control" id="examTime"
+                     name="examTime" [(ngModel)]="examTime" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-lg-8 col-md-6 col-12 mb-5">
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
+              <div class="custom-control custom-checkbox">
+                <label class="" for=""></label>
+                <input type="checkbox" class="custom-control-input" name="isFree" id="isFree"
+                       [(ngModel)]="isFree">
+                <label for="isFree" class="custom-control-label">آیا جلسه رایگان است؟</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-11 col-11">
+                  <button type="button" class="btn btn-primary float-right" data-dismiss="modal">ثبت تغییرات</button>
+                </div>
+                <div class="col-md-1 col-1">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

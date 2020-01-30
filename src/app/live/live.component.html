@@ -1,0 +1,338 @@
+<div class="appContainer mt-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 chatSection">
+                <div id="chatContainer" class="d-flex flex-column bg-white shadow-sm rounded h-100">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" type="1" (click)='handeShowMessage(1)'>همه</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" type="2" (click)='handeShowMessage(2)'>سوال ها</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" type="3" (click)='handeShowMessage(3)'>پیام ها</a>
+                        </li>
+                        <li class="nav-item" *ngFor='let user of chatUser;let i = index'>
+                            <a class="rejectMessage pointer" (click)='removeSelectedChat(i)'>
+                                <i class="fa fa-remove"></i>
+                            </a>
+                            <a class="nav-link" data-toggle="tab" type="4"
+                                [href]="'#user'+user.messageId">{{user.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content question-box">
+                        <div class="tab-pane container active user-chat" id="all">
+                            <div id="user-all" class="user-chat" style="overflow: hidden auto;">
+                                <div class="question active" *ngIf='messages.length > 0'>
+                                    <div class="d-flex align-items-center w-100 py-2 pl-2 chat-border mb-1"
+                                        *ngFor='let chat of filterMessages;let i = index'>
+                                        <!-- <div class="icon">
+                                            <img src="/images/icon/user-black.png" alt="">
+                                        </div> -->
+                                        <div *ngIf='chat.type != 2 && chat.type != 3' class="d-flex w-100 mr-2">
+                                            <div class="detail">
+                                                {{chat.name}}:
+                                                <div class="text text-break">{{chat.text}}</div>
+                                                <div>
+                                                    <div class="replay" *ngIf='chat.replay'>
+                                                        <p style="word-break: break-all">
+                                                            پاسخ:{{chat.replay}}
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div> <button *ngIf='userType == 1 && !chat.isAdmin' type="button"
+                                                class="chatButton" (click)='checkMessage(chat.messageId)'><img
+                                                    src="../../assets/images/reply.png" alt="پاسخ"></button>
+                                            <button *ngIf='userType == 1 && !chat.approved' type="button"
+                                                class="chatButton"
+                                                (click)='aproveMessage(chat.messageId)'>تایید</button>
+                                            <button *ngIf='userType == 1' type="button"
+                                                class="chatButton rejectChatButton"
+                                                (click)='rejectMessage(chat.messageId)'><img
+                                                    src="../../assets/images/reject.png" alt="رد پیام">
+                                            </button>
+                                        </div>
+                                        <div *ngIf='chat.type === 2' class="d-flex w-100 mr-2">
+                                            <p>
+                                                <span>سوال:</span>
+                                                {{chat.text}}
+                                            </p>
+                                            <button class="btn btn-primary btn-sm mr-1"
+                                                (click)='showTest(chat.questionId)'>
+                                                مشاهده
+                                            </button>
+                                            <button *ngIf='userType === 1 && !chat.isEnd' class="btn btn-primary btn-sm mr-1"
+                                                (click)='endTest(chat.questionId)'>
+                                                پایان
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="question active">
+                                    <div class="d-flex align-items-center w-100 py-2 pl-2 mb-1"
+                                        *ngFor='let temp of messages'>
+                                        <div class="d-flex w-100 mr-2" *ngIf='temp.type === 3'>
+                                            <p class="detail">
+                                                <span>سوال:</span>
+                                                {{temp.text}}
+                                            </p>
+                                            <button class="btn btn-primary btn-sm mr-1"
+                                                (click)='showTest(temp.questionId)'>
+                                                مشاهده
+                                            </button>
+                                            <button class="btn btn-primary btn-sm mr-1"
+                                                (click)='startTest(temp.questionId)'>
+                                                شروع
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane container fade user-chat" [id]="'user'+user.messageId"
+                            *ngFor='let user of chatUser;let i = index'>
+                            <div>
+                                <table class="custom-table table table-border">
+                                    <tr>
+                                        <td>نام و نام خانوادگی</td>
+
+                                        <td>{{user.fullName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>شماره تلفن</td>
+
+                                        <td>{{user.phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>آی پی کاربر</td>
+
+                                        <td>{{user.ip}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>رزولویشن صفحه کاربر</td>
+
+                                        <td>{{user.monitor}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>رزولوشن ویدیو کاربر</td>
+
+                                        <td>{{user.video}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>صدای ویدیو کاربر</td>
+
+                                        <td>{{user.video}}/td>
+                                    </tr>
+                                    <tr>
+                                        <td>وضعیت صدا</td>
+
+                                        <td>{{user.video}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>اطلاعات دستگاه</td>
+
+                                        <td>{{user.device}}</td>
+                                    </tr>
+                                </table>
+                                <br>
+                                <p class="user-replay">
+                                    کاربر: {{user.text}}
+                                </p>
+                                <p class="admin-replay">
+                                    ادمین: {{user.replay}}
+                                </p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary btn-block">رفرش صفحه</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-primary btn-block"> رفرش پلیر</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sendMessageContainer" class="sendQuestionBox">
+                        <textarea rows="1" placeholder="متن سوال .." class="sendQuestion" [(ngModel)]='chatText'
+                            [attr.disabled]="disableInput ? '':null" (keyup.enter)="handleMessage()"></textarea>
+                        <button class="sendQuestionBtn" (click)='handleMessage()'>
+                            <img src="../../assets/images/send.png">
+                            <img src="../../assets/images/spinner.gif" width="20" height="20" style="display: none;">
+                        </button>
+                        <button class="sendQuestionBtn" (click)='showTestModal()' *ngIf='userType == 1'>
+                            <img src="../../assets/images/information.png">
+                        </button>
+                    </div>
+                    <!-- Create Quiz Box -->
+                    <div *ngIf='createTest' class="newQuestionBox">
+                        <div class="row">
+
+                            <a class="close-quiz" (click)='closeCreateTest()'><i class="fa fa-check"></i> تایید و
+                                بستن</a>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>طرح سوال:</label>
+                                <textarea [(ngModel)]='textQuestion' class="form-control" name="" id="" cols="30"
+                                    rows="5" placeholder="کدام گزینه صحیح است؟"></textarea>
+                            </div>
+                        </div>
+                        <label for="">جواب های سوال</label>
+                        <div [id]='"op"+i' *ngFor='let question of questions;let i = index' class="row mt-2 opt"
+                            style="width: 100%;padding: 5px;">
+                            <div style="width: 100%;">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <input type="radio" name="quiz" [value]="i" (change)='setBorder(i)'>
+                                    </div>
+                                    <div class="col-9">
+                                        <input [(ngModel)]='question.text' type="text" class="form-control"
+                                            [placeholder]='"گزینه " + (+i+1)'>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-danger" (click)='removeTest(i)'>
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mt-4 w-100">
+                            <div class="col-6">
+                                <button class="quiz-button" (click)='addTest()'>
+                                    افزودن گزینه
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="quiz-button" (click)='sendTest()'>
+                                    {{createTestText}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- User Answer quesion -->
+                    <div *ngIf='UserAnswer' class="newQuestionBox">
+                        <div class="row">
+
+                            <a class="close-quiz" (click)='closeUserAnswer()'><i class="fa fa-check"></i> تایید و
+                                بستن</a>
+                        </div>
+                        <div class="row">
+                            <div class="d-flex">
+                                <label>سوال:</label>
+                                <p>
+                                    {{TestText}}
+                                </p>
+                            </div>
+                        </div>
+                        <label for="">گزینه ها</label>
+                        <div [id]='"op"+i' *ngFor='let question of testOptins;let i = index' class="row mt-2 opt"
+                            style="width: 100%;padding: 5px;">
+                            <div style="width: 100%;">
+                                <div class="row" class="d-flex">
+                                    <div class="col-1 radio-style">
+                                        <input type="radio" name="quiz" [value]="i" (change)='setBorder(i)'>
+                                    </div>
+                                    <div class="col-11">
+                                        <input type="text"
+                                            [class]="question.isAnswer ? 'question-answer form-control':'form-control'"
+                                            [(ngModel)]='question.text' readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-3"></div>
+                            <div class="col-6">
+                                <button class="btn quiz-button btn-block" (click)='sendAnswer()'>
+                                    ارسال
+                                </button></div>
+                        </div>
+                    </div>
+                    <!-- test Chart -->
+                    <div *ngIf='showResult' class="newQuestionBox">
+                        <div class="row">
+
+                            <a class="close-quiz" (click)='closeResult()'><i class="fa fa-check"></i> تایید و
+                                بستن</a>
+                        </div>
+                        <div class="row">
+                            <div class="d-flex">
+                                <label>سوال:</label>
+                                <p>
+                                    {{TestText}}
+                                </p>
+                            </div>
+                        </div>
+                        <canvas class="mt-2" id="canvasBar"></canvas>    
+                        <canvas class="mt-2" id="canvasPie"></canvas>    
+                        <!-- chart -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 videoSection"> 
+                <!-- <video
+                id="my-player"
+                class="video-js"
+                controls
+                preload="auto"
+                poster="//vjs.zencdn.net/v/oceans.png"
+                data-setup='{"fluid": true}'>
+              <source src="http://vod.anycast.lahzecdn.com/hls/15798940845dqAC176ca5f3366a7eae2a4a650d23806ae8/master.m3u8?source=lahzenegar_api&checksum=GvlnAbZuJiWDkTsg_MxlqA&format=.m3u8" type="video/m3u8">
+              <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+               
+              </p>
+            </video>  -->
+
+            <div style="position:relative;"><div style="display: block;padding-top: 57%">
+            </div><iframe style="position:absolute;top:0;left:0;width:100%; height:100%;"
+             frameborder="0" [src]="streamId | safe" aallowfullscreen></iframe></div>
+            
+        </div>
+
+        </div>
+
+
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal fade" id="popupModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 id="popupTitle" class="modal-title">
+
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Modal body -->
+            <div id="popupBody" class="modal-body">
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">تایید و بستن</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <div class="detail ml-2 replyMessage">
+    پاسخ:
+    <div class="text">test333<br></div></div> -->

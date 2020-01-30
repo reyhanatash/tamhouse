@@ -1,0 +1,162 @@
+<div class="appContainer">
+  <div class="text-right">
+    <div class="container-fluid">
+      <div class="py-3">
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="showNewQuestion()">
+            <i class="far fa-plus"></i> ایجاد سوال
+          </button>
+        </div>
+        <div class="text-justify">
+
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-12 col-lg-12">
+            <div id="courseSessionList">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">ایجاد</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row form-row text-right">
+            <div class="col-8 mb-5">
+              <label class="" for="title">عنوان سوال 1</label>
+              <input type="text" value=""
+                     class="form-control" id="title" name="title"
+                     [(ngModel)]="model.title">
+            </div>
+            <div class="col-4 mb-5">
+              <label class="" for="title">شماره سوال</label>
+              <input type="number" value=""
+                     class="form-control" id="questionNum" name="title"
+                     [(ngModel)]="model.questionNum">
+            </div>
+
+            <div class=" col-8">
+              <div class="custom-control custom-checkbox">
+                <input type="checksbox" class="custom-control-input" name="hasFile" id="hasFile"
+                       [(ngModel)]="model.randomQ">
+                <label for="hasFile" class="custom-control-label">آیا پاسخ ها بصورت تصادفی بارگذاری شوند ؟</label>
+              </div>
+            </div>
+            <div class=" col-4">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="hasPic" id="hasPic"
+                       [(ngModel)]="model.hasPic" (change)="questionHasFile()">
+                <label for="hasPic" class="custom-control-label">آیا سوال دارای عکس است ؟</label>
+              </div>
+            </div>
+            <div class=" col-12 mb-5">
+              <div class="imgBox" style="margin: 0 auto">
+                <div class="custom-dropzone fileUploader" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)"
+                     [multiple]="false">
+                  <ngx-dropzone-label>
+                    <div>
+                      <h6 id="firstUploadLabel" class="mr-top-130 fileUploadLabel">انتخاب فایل</h6>
+                    </div>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                                              [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                  </ngx-dropzone-image-preview>
+                </div>
+                <!--<dropzone-->
+                <!--[config]="configUploader"-->
+                <!--id="eduFile"-->
+                <!--style="height: 100px;"-->
+                <!--[message]="'انتخاب فایل'"-->
+                <!--(error)="onUploadError($event)"-->
+                <!--(success)="onUploadSuccess($event)"-->
+                <!--(click)="rresetFileUpload1()"-->
+                <!--&gt;</dropzone>-->
+              </div>
+            </div>
+            <hr/>
+            <div class="col-12">
+              <p>پاسخ ها</p>
+            </div>
+            <div class="col-12 mb-5">
+              <label class="" for="title">عنوان پاسخ 1</label>
+              <input type="text" value=""
+                     class="form-control" id="questionText" name="title"
+                     [(ngModel)]="model.firstQuestionTitle">
+            </div>
+            <div class="col-6 mb-5">
+              <label class="" for="title">وضعیت پاسخ 1</label>
+              <select class="form-control" id="audienceIds" name="questionSate[]"
+                      [(ngModel)]="model.selectedFirstQ">
+                <option disabled hidden>وضعیت پاسخ را انتخاب کنید</option>
+                <option *ngFor="let mat of questionSate;let i = index" [ngValue]="mat">{{mat.name}}</option>
+              </select>
+            </div>
+            <div class="col-6 mb-5">
+              <label class="" for="title">ترتیب پاسخ 1</label>
+              <input type="number" min="1" max="4"
+                     class="form-control" id="firstQuestionOrder" name="title"
+                     [(ngModel)]="model.firstQuestionOrder">
+            </div>
+          </div>
+          <div *ngFor="let item of moreQuestion;let i = index" class="row">
+            <div class="col-11 mb-5">
+              <label class="" for="title">عنوان پاسخ {{i +2}}</label>
+              <input type="text" value=""
+                     class="form-control" id="answerText{{i}}" name="answerText{{i}}"
+                     [(ngModel)]="item.answerText">
+            </div>
+            <div class="col-1 mb-5">
+              <i class="fa fa-close deleteQuestion" (click)="removeAnswer(i)"></i>
+            </div>
+            <div class="col-6 mb-5">
+              <label class="" for="title">وضعیت پاسخ {{i+2}}</label>
+              <select class="form-control" name="answerState{{i}}" id="answerState{{i}}"
+                      [(ngModel)]="item.answerState">
+                <option value="-1">وضعیت پاسخ را انتخاب کنید</option>
+                <option *ngFor="let mat of questionSate;let i = index" [ngValue]="mat">{{mat.name}}</option>
+              </select>
+            </div>
+            <div class="col-6 mb-5">
+              <label class="" for="title">ترتیب پاسخ {{i+2}}</label>
+              <input type="number" min="1" max="4"
+                     class="form-control" id="answerOrder{{i}}" name="answerOrder{{i}}"
+                     [(ngModel)]="item.answerOrder">
+            </div>
+          </div>
+          <div class="col-12 mb-5">
+            <button class="btn btn-primary" (click)="addMoreQuestion()">
+              <i class="far fa-plus" style="padding-left: 5px"></i>ایجاد پاسخ
+            </button>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-11 col-11">
+                  <button type="button" class="btn btn-primary float-right" data-dismiss="modal">ثبت تغییرات</button>
+                </div>
+                <div class="col-md-1 col-1">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

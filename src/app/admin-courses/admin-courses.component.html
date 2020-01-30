@@ -1,0 +1,211 @@
+<div class="appContainer">
+  <div class="text-right">
+    <div class="container-fluid">
+      <div class="py-3">
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="showNewCourse()">
+            <i class="far fa-plus"></i> دوره
+          </button>
+        </div>
+        <div class="text-justify">
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-12 col-lg-12">
+          <div id="courseList">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">دوره جدید</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row form-row text-right">
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="title">عنوان</label>
+              <input type="text" value="" class="form-control"
+                     id="title" name="title" [(ngModel)]="courseTitle">
+            </div>
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="description">توضیحات</label>
+              <input type="text" value="" class="form-control"
+                     id="description" name="description" [(ngModel)]="courseDesc">
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="descriptionEn">کلمه کلیدی (انگلیسی)</label>
+              <input type="text" value="" class="form-control"
+                     id="descriptionEn" name="descriptionEn" [(ngModel)]="courseDescEn">
+            </div>
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="courseStartDescription"> توضیحات شروع دوره</label>
+              <input type="text" value="" class="form-control" id="courseStartDescription"
+                     name="courseStartDescription" [(ngModel)]="courseStartDesc">
+            </div>
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class=""> تاریخ شروع</label>
+              <dp-date-picker id="startDate"
+                              dir="rtl"
+                              class="form-control"
+                              [(ngModel)]="courseStartDate"
+                              (onChange)="getSelectedStartDate()"
+                              mode="day"
+                              [placeholder]="currentDate"
+                              theme="dp-material"
+                              [config]="datePickerConfig"
+              >
+              </dp-date-picker>
+            </div>
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class=""> تاریخ انتشار در سامانه</label>
+              <dp-date-picker
+                dir="rtl" id="publishDate"
+                class="form-control"
+                [(ngModel)]="coursePublishDate"
+                (onChange)="getSelectedPublishDate()"
+                mode="day"
+                [placeholder]="currentDate"
+                theme="dp-material"
+                [config]="datePickerConfig"
+              >
+              </dp-date-picker>
+            </div>
+
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="courseType"> نوع دوره</label>
+              <select class="form-control" id="courseType" [(ngModel)]="selectedCourseType">
+                <option *ngFor="let pro of courseTypeList" [ngValue]='pro'>
+                  {{pro.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="systemLevel"> نظام آموزشی</label>
+              <select class="form-control" id="systemLevel" [(ngModel)]="selectedSystemLevel">
+                <option *ngFor="let pro of systemLevelList" [ngValue]='pro'>
+                  {{pro.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="audienceIds"> رشته تحصیلی</label>
+              <select class="form-control" id="audienceIds"
+                      class="js-example-basic-multiple" name="audience[]" multiple="multiple"
+                      [(ngModel)]="selectedAudiences">
+                <option *ngFor="let mat of audienceList;let i = index" value="{{mat.fldPkAudienceCo}}">
+                  {{mat.fldAudience}}
+              </select>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="price"> قیمت دوره </label>
+              <input class="form-control" id="price"
+                     name="price" [(ngModel)]="price" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="priceRegion1"> قیمت دوره منطقه 1 </label>
+              <input class="form-control" id="priceRegion1"
+                     name="priceRegion1" [(ngModel)]="priceRegion1" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="priceRegion2"> قیمت دوره منطقه 2 </label>
+              <input class="form-control" id="priceRegion2"
+                     name="priceRegion2" [(ngModel)]="priceRegion2" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="priceRegion3"> قیمت دوره منطقه 3 </label>
+              <input class="form-control" id="priceRegion3"
+                     name="priceRegion3" [(ngModel)]="priceRegion3" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="index"> اولویت </label>
+              <input class="form-control" id="index"
+                     name="index" [(ngModel)]="index" OnlyNumber="true"/>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="teachers"> مدرسین دوره</label>
+              <select class="form-control" id="teachers"
+                      class="js-example-basic-multiple" name="teacher[]" multiple="multiple"
+                      [(ngModel)]="selectedTeachers">
+                <option *ngFor="let mat of teacherList;let i = index" value="{{mat.pk}}">{{mat.name}}
+              </select>
+            </div>
+
+            <div class="col-md-6 col-12 form-group mb-5">
+              <label class="" for="targetCourseStageIds"> پایه</label>
+              <select class="form-control" id="targetCourseStageIds"
+                      class="js-example-basic-multiple" name="target[]" multiple="multiple"
+                      [(ngModel)]="selectedTargets">
+                <option *ngFor="let mat of stageList;let i = index" value="{{mat.fldPkStageCo}}">{{mat.fldStage}}
+              </select>
+            </div>
+            <div class="col-12 form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="isActive" id="isActive"
+                       [(ngModel)]="isActive">
+                <label for="isActive" class="custom-control-label">آیا دوره فعال است؟</label>
+              </div>
+            </div>
+            <div class="col-md-12 col-12 form-group mb-5">
+              <label class="" for="targetCourseStageIds"> عکس دوره</label>
+
+              <div class="custom-dropzone fileUploader selectedCourseFile" ngx-dropzone [accept]="'image/*'"
+                   (change)="onSelect($event)"
+                   [multiple]="false">
+                <ngx-dropzone-label>
+                  <div>
+                    <h6 id="firstUploadLabel" class="mr-top-130 fileUploadLabel">انتخاب فایل</h6>
+                  </div>
+                </ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                                            [removable]="true" (removed)="onRemove(f)">
+                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <div class="container">
+
+
+              <div class="row">
+
+                <div class="col-md-11 col-11">
+                  <button type="button" class="btn btn-primary float-right"
+                          (click)="saveNewCourse()">ثبت تغییرات
+                  </button>
+                </div>
+                <div class="col-md-1 col-1">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,0 +1,165 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "tamland": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/tamland",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/assets/bootstrap/css/bootstrap-rtl.min.css",
+              "src/styles.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
+              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.material.css",
+              "node_modules/select2/dist/css/select2.min.css"
+            ],
+            "scripts": [
+              "src/assets/js/jquery.min.js",
+              "./node_modules/persian-datepicker/dist/js/persian-datepicker.min.js",
+              "src/assets/bootstrap/js/bootstrap.min.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/bootstrap-notify.min.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxcore.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxbuttons.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxdatetimeinput.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxtooltip.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxlistbox.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxdropdownlist.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxmenu.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxdata.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxdata.export.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.export.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.edit.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.filter.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.sort.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.selection.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxscrollbar.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.pager.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxgrid.columnsresize.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxcheckbox.js",
+              "./node_modules/jqwidgets-ng/jqwidgets/jqxcombobox.js",
+              "node_modules/select2/dist/js/select2.js",
+              "src/assets/signalR/jquery.signalR-2.4.1.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "tamland:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "tamland:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "tamland:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/bootstrap/css/bootstrap-rtl.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css"
+            ],
+            "scripts": [
+              "src/assets/js/jquery.min.js",
+              "src/assets/bootstrap/js/bootstrap.min.js",
+              "src/assets/js/popper.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "tamland:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "tamland:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "tamland"
+}

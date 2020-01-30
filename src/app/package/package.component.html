@@ -1,0 +1,152 @@
+<div class="appContainer">
+  <div class="text-right">
+    <div class="container-fluid">
+      <div class="py-3">
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="showNewPackage()">
+            <i class="far fa-plus"></i> بسته
+          </button>
+        </div>
+        <div class="text-justify"></div>
+        <div class="row">
+          <div class="col-md-12 col-12 col-lg-12">
+            <div id="packageList">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">بسته جدید</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row form-row text-right">
+          <div class="col-md-6 col-12 mb-5">
+            <label class="" for="title">نام بسته</label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="title"
+              name="title"
+              [(ngModel)]="title"
+            />
+          </div>
+          <div class="col-md-6 col-12 mb-5">
+            <label class="" for="description"> شرح</label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="description"
+              name="description"
+              [(ngModel)]="description"
+            />
+          </div>
+          <div class="col-md-6 col-12 mb-5">
+            <label class="" for="packType"> نوع بسته</label>
+            <select class="form-control" id="packType" [(ngModel)]="selectedPackType">
+              <option *ngFor="let pro of packTypeList" value={{pro.id}}>
+                  {{pro.name}}
+                </option>
+           </select>
+         </div>
+
+         <div class="col-md-6 col-12 mb-5">
+            <label class="" for="systemType"> نظام آموزشی</label>
+            <select class="form-control" id="packType" [(ngModel)]="selectedSystemType">
+              <option *ngFor="let pro of systemTypeList" value={{pro.id}}>
+                  {{pro.name}}
+                </option>
+           </select>
+         </div>
+
+         <div class="col-md-6 col-12 mb-5">
+          <label class="" for="discPercent"> درصد تخفیف</label>
+          <input
+            type="text"
+            value=""
+            class="form-control"
+            id="discPercent"
+            name="discPercent"
+            OnlyNumber = "true"
+            [(ngModel)]="discPercent"
+          />
+        </div>
+
+        <div class="col-md-6 col-12 mb-5">
+          <label class="" for="courses"> دوره ها</label>
+          <select class="form-control" id="courses"
+           class="js-example-basic-multiple" name="courses[]" multiple="multiple"
+           [(ngModel)]="selectedCourses">
+           <option *ngFor="let mat of courseList;let i = index" value="{{mat.pk}}">{{mat.name}}
+          </select>
+        </div>
+
+        <div class="col-md-6 col-12 mb-5">
+          <label class="" for="audiences"> رشته تحصیلی</label>
+          <select class="form-control" id="audiences"
+           class="js-example-basic-multiple" name="audiences[]" multiple="multiple"
+           [(ngModel)]="selectedAudiences">
+           <option *ngFor="let mat of audienceList;let i = index" value="{{mat.pk}}">{{mat.name}}
+          </select>
+        </div>
+
+        <div class="col-md-6 col-12 mb-5">
+          <label class="" for="targetStage"> پایه تحصیلی</label>
+          <select class="form-control" id="targetStage"
+           class="js-example-basic-multiple" name="targetStage[]" multiple="multiple"
+           [(ngModel)]="selectedTargets">
+           <option *ngFor="let mat of TargetList;let i = index" value="{{mat.pk}}">{{mat.name}}
+          </select>
+        </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <button
+                type="button"
+                class="btn btn-primary float-right"
+                data-dismiss="modal"
+              >ثبت تغییرات
+              </button>
+            </div>
+            <div class="col-md-1 col-1">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                لغو
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

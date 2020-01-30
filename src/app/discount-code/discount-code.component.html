@@ -1,0 +1,190 @@
+<div class="appContainer">
+  <div class="text-right">
+    <div class="container-fluid">
+      <div class="py-3">
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="showNewCode()">
+            <i class="far fa-plus"></i> کد تخفیف
+          </button>
+        </div>
+        <div class="text-justify"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">کد تخفیف</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row form-row text-right">
+          <div class="col-12 form-group mb-5">
+            <label class="" for="codeName">نام دسته کد ها</label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="codeName"
+              name="codeName"
+              [(ngModel)]="codeName"
+            />
+          </div>
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="prefix"> بخش ثابت</label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="prefix"
+              name="prefix"
+              [(ngModel)]="prefix"
+            />
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="codeLength"> طول کد </label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="codeLength"
+              name="codeLength"
+              [(ngModel)]="codeLength"
+              OnlyNumber="true"
+            />
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="count"> تعداد </label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="count"
+              name="count"
+              [(ngModel)]="count"
+              OnlyNumber="true"
+            />
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="disPercent"> درصد تخفیف </label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="disPercent"
+              name="disPercent"
+              [(ngModel)]="disPercent"
+              OnlyNumber="true"
+            />
+          </div>
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="activateDate"> تاریخ فعال شدن</label>
+            <dp-date-picker 
+              id="activateDate"
+              dir="rtl"
+              class="form-control"
+              [(ngModel)]="activateDate"
+              (onChange)="getSelectedDate()"
+              mode="day"
+              [placeholder]="currentDate"
+              theme="dp-material"
+              [config]="datePickerConfig"
+            >
+            </dp-date-picker>
+          </div> 
+          
+          
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="activateDate"> تاریخ اتمام</label>
+            <dp-date-picker 
+              id="activateDate"
+              dir="rtl"
+              class="form-control"
+              [(ngModel)]="expireDate"
+              (onChange)="getESelectedDate()"
+              mode="day"
+              [placeholder]="currentDate"
+              theme="dp-material"
+              [config]="datePickerConfig"
+            >
+            </dp-date-picker>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="audienceIds"> کلاس</label>
+            <select class="form-control" id="audienceIds"
+             class="js-example-basic-multiple" name="audience[]" multiple="multiple"
+             [(ngModel)]="selectedAudiences">
+             <option *ngFor="let mat of audienceList;let i = index" value="{{mat.pk}}">{{mat.name}}
+            </select>
+          </div>
+          
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="packageIds"> بسته</label>
+            <select class="form-control" id="packageIds"
+             class="js-example-basic-multiple" name="package[]" multiple="multiple"
+             [(ngModel)]="selectedPackages">
+             <option *ngFor="let mat of packageList;let i = index" value="{{mat.pk}}">{{mat.name}}
+            </select>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 mb-5">
+            <label class="" for="disPercent"> شماره موبایل داوطلب </label>
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              id="phoneNumber"
+              name="phoneNumber"
+              [(ngModel)]="phoneNumber"
+              OnlyNumber="true"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-11 col-11">
+              <button
+                type="button"
+                class="btn btn-primary float-right"
+                data-dismiss="modal"
+              >
+                ثبت تغییرات
+              </button>
+            </div>
+            <div class="col-md-1 col-1">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                لغو
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
