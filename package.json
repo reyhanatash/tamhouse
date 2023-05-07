@@ -27,7 +27,7 @@
     "chart.js": "^2.9.3",
     "font-awesome": "^4.7.0",
     "jalali-moment": "^3.3.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jqwidgets-ng": "^9.0.0",
     "ng2-ckeditor": "^1.2.6",
     "ng2-jalali-date-picker": "^2.2.7",
